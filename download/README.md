@@ -1,94 +1,112 @@
-# Notes Vibes App
+# Notes Vibes App - Local Setup Guide
 
-An aesthetic notes app with todo lists, page organization, and Spotify integration featuring a vinyl player visualization.
+This README will guide you through setting up the Notes Vibes application on your local machine.
+
+## Download Instructions
+
+### Option 1: Using Replit's Export Feature
+
+1. In the Replit environment, click on the "three dots" menu (⋮) in the top-right corner.
+2. Select "Export Repl" or "Download as Zip" option.
+3. The complete project will be downloaded as a ZIP file.
+
+### Option 2: Manual Download (If Export Isn't Working)
+
+If you're having trouble with the export feature, you can manually copy the necessary files:
+
+1. Create a new folder on your computer for the project
+2. Copy the following files and folders from Replit to your local folder:
+   - `client/`
+   - `db/`
+   - `server/`
+   - `shared/`
+   - `package.json`
+   - `tsconfig.json`
+   - `vite.config.ts`
+   - `drizzle.config.ts`
+   - `postcss.config.js`
+   - `tailwind.config.ts`
+   - `components.json`
+   - `download/local-setup.js` (rename to `setup.js` in your local folder)
+
+## Setting Up the Application
+
+1. Make sure you have the following installed:
+   - Node.js 18 or later
+   - PostgreSQL database
+   - npm (comes with Node.js)
+
+2. Navigate to the project folder in your terminal/command prompt:
+   ```bash
+   cd path/to/project/folder
+   ```
+
+3. Run the setup script:
+   ```bash
+   node setup.js
+   ```
+   
+   This script will:
+   - Ask for your PostgreSQL connection details
+   - Create a `.env` file with your database configuration
+   - Install all dependencies
+   - Set up the database schema
+   - Seed the database with initial data
+
+4. After the setup is complete, start the application:
+   ```bash
+   npm run dev
+   ```
+
+5. Open your browser and go to `http://localhost:5000`
+
+6. Log in with the demo account:
+   - Username: `demo`
+   - Password: `password`
 
 ## Features
 
-- 🎨 Modern UI with dark/light theme support
-- 📝 Different note types: Regular notes, To-do lists, and Quick notes
-- 🎵 Spotify integration with vinyl record visualization
-- 🏷️ Tag system for organization
-- 📱 Responsive design for all devices
+- User authentication (login, register, profile)
+- Note management (create, edit, delete)
+- Todo lists
+- Quick notes
+- Tag organization
+- Spotify integration (requires Spotify API credentials)
+- Dark/light theme
 
-## Local Installation Guide
+## Troubleshooting
 
-### Prerequisites
+### Database Connection Issues
 
-- Node.js (version 18.x or later)
-- PostgreSQL database
-- npm (or yarn)
+If you encounter database connection issues:
 
-### Step 1: Clone and Install Dependencies
+1. Check that PostgreSQL is running
+2. Verify the connection details in your `.env` file
+3. Make sure your PostgreSQL user has the necessary permissions
+
+### Port Already in Use
+
+If port 5000 is already in use:
+
+1. Edit `server/index.ts` to change the port number
+2. Restart the application
+
+### Missing Dependencies
+
+If you see errors about missing dependencies:
 
 ```bash
-# Extract the downloaded tar.gz file
-tar -xzf notes-vibes-app.tar.gz
-cd notes-vibes-app
-
-# Install dependencies
 npm install
 ```
 
-### Step 2: Set Up Environment Variables
-
-```bash
-# Copy the example .env file
-cp .env.example .env
-
-# Edit the .env file with your database and Spotify credentials
-```
-
-Make sure to update the `.env` file with:
-- Your PostgreSQL connection details
-- Spotify API credentials (if you want to use the music features)
-
-### Step 3: Set Up the Database
-
-```bash
-# Create PostgreSQL database
-createdb notes_vibes_db
-
-# Push schema to database
-npm run db:push
-
-# Seed the database with initial data
-npm run db:seed
-```
-
-### Step 4: Start the Application
-
-```bash
-npm run dev
-```
-
-The application will be available at [http://localhost:5000](http://localhost:5000)
-
-### Demo Login
-
-Use these credentials to log in:
-- Username: `demo`
-- Password: `password`
-
-## Spotify Integration Setup
-
-To use the Spotify integration:
-
-1. Create an app in the [Spotify Developer Dashboard](https://developer.spotify.com/dashboard)
-2. Set the redirect URI to `http://localhost:5000/api/spotify/callback`
-3. Add your Spotify credentials to the `.env` file:
-   ```
-   SPOTIFY_CLIENT_ID=your_client_id
-   SPOTIFY_CLIENT_SECRET=your_client_secret
-   ```
-
 ## Technology Stack
 
-- Frontend: React, TailwindCSS, Shadcn UI
-- Backend: Express.js
+- Frontend: React, Tailwind CSS, Shadcn UI components
+- Backend: Node.js, Express
 - Database: PostgreSQL with Drizzle ORM
-- Authentication: Passport.js with local strategy
-- Music API: Spotify Web API
+- Authentication: Passport.js with session-based auth
+- API: REST endpoints with proper validation
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is for educational purposes only.

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notes Vibes App Download</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      line-height: 1.6;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #f8f9fa;
+      color: #333;
+    }
+    .container {
+      background-color: white;
+      border-radius: 8px;
+      padding: 30px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      color: #4f46e5;
+      margin-top: 0;
+    }
+    .download-section {
+      margin-top: 30px;
+      padding: 20px;
+      background-color: #f0f4ff;
+      border-radius: 8px;
+      border: 1px solid #d1d5db;
+    }
+    .download-button {
+      display: inline-block;
+      background-color: #4f46e5;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+      margin-top: 15px;
+      transition: background-color 0.2s;
+    }
+    .download-button:hover {
+      background-color: #4338ca;
+    }
+    .instructions {
+      margin-top: 30px;
+      padding: 20px;
+      background-color: #f0fff4;
+      border-radius: 8px;
+      border: 1px solid #d1d5db;
+    }
+    code {
+      background-color: #f1f1f1;
+      padding: 2px 5px;
+      border-radius: 4px;
+      font-family: monospace;
+    }
+    pre {
+      background-color: #1e293b;
+      color: #e2e8f0;
+      padding: 15px;
+      border-radius: 6px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Notes Vibes App Download</h1>
+    <p>Download the Notes Vibes application package to run it locally on your computer.</p>
+    
+    <div class="download-section">
+      <h2>Download Files</h2>
+      <p>Click the links below to download the necessary files:</p>
+      
+      <div>
+        <a href="notes-vibes-app-bundle.tar.gz" class="download-button" download>Download Complete Bundle (tar.gz)</a>
+      </div>
+      
+      <p style="margin-top: 20px;">Individual files (if the bundle doesn't work):</p>
+      <ul>
+        <li><a href="notes-vibes-app.tar.gz" download>Application Source Code</a></li>
+        <li><a href="README.md" download>README.md</a></li>
+        <li><a href=".env.example" download>.env.example</a></li>
+        <li><a href="setup.js" download>setup.js</a></li>
+      </ul>
+    </div>
+    
+    <div class="instructions">
+      <h2>Installation Instructions</h2>
+      
+      <h3>Step 1: Extract the Files</h3>
+      <p>After downloading, extract the contents:</p>
+      <pre><code>tar -xzf notes-vibes-app-bundle.tar.gz
+tar -xzf notes-vibes-app.tar.gz
+cd notes-vibes-app</code></pre>
+      
+      <h3>Step 2: Run the Setup Script</h3>
+      <p>Run the interactive setup script:</p>
+      <pre><code>node setup.js</code></pre>
+      
+      <h3>Step 3: Configure Environment</h3>
+      <p>Edit the <code>.env</code> file with your database credentials and Spotify API keys.</p>
+      
+      <h3>Step 4: Start the Application</h3>
+      <pre><code>npm run dev</code></pre>
+      
+      <h3>Step 5: Login with Demo Account</h3>
+      <p>Username: <code>demo</code><br>
+      Password: <code>password</code></p>
+      
+      <h3>System Requirements</h3>
+      <ul>
+        <li>Node.js 18 or later</li>
+        <li>PostgreSQL database</li>
+        <li>npm (included with Node.js)</li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>
