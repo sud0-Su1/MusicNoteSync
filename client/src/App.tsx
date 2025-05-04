@@ -3,6 +3,7 @@ import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from "./lib/theme-provider";
+import { AuthProvider, ProtectedRoute } from "./lib/auth-context";
 import { Fragment, Suspense } from "react";
 import Sidebar from "./components/sidebar";
 import MusicPlayer from "./components/music-player";
@@ -11,6 +12,7 @@ import NotFound from "@/pages/not-found";
 import Home from "@/pages/home";
 import TodoList from "@/pages/todo-list";
 import QuickNotes from "@/pages/quick-notes";
+import LoginPage from "@/pages/login";
 
 // Main app layout with sidebar
 function AppLayout({ children }: { children: React.ReactNode }) {
@@ -38,21 +40,34 @@ function AppLayout({ children }: { children: React.ReactNode }) {
 function Router() {
   return (
     <Switch>
+      {/* Public routes */}
+      <Route path="/login">
+        <LoginPage />
+      </Route>
+      
+      {/* Protected routes */}
       <Route path="/">
-        <AppLayout>
-          <Home />
-        </AppLayout>
+        <ProtectedRoute>
+          <AppLayout>
+            <Home />
+          </AppLayout>
+        </ProtectedRoute>
       </Route>
       <Route path="/todos">
-        <AppLayout>
-          <TodoList />
-        </AppLayout>
+        <ProtectedRoute>
+          <AppLayout>
+            <TodoList />
+          </AppLayout>
+        </ProtectedRoute>
       </Route>
       <Route path="/quick-notes">
-        <AppLayout>
-          <QuickNotes />
-        </AppLayout>
+        <ProtectedRoute>
+          <AppLayout>
+            <QuickNotes />
+          </AppLayout>
+        </ProtectedRoute>
       </Route>
+      
       {/* Fallback to 404 */}
       <Route>
         <NotFound />
@@ -65,10 +80,12 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider defaultTheme="system" storageKey="notes-vibes-theme">
-        <Suspense fallback={<Fragment />}>
-          <Router />
-          <Toaster />
-        </Suspense>
+        <AuthProvider>
+          <Suspense fallback={<Fragment />}>
+            <Router />
+            <Toaster />
+          </Suspense>
+        </AuthProvider>
       </ThemeProvider>
     </QueryClientProvider>
   );
