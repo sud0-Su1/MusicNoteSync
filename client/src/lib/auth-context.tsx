@@ -31,7 +31,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   // Update user state based on query response
   useEffect(() => {
     if (data && !error) {
-      setUser(data);
+      setUser(data as User);
     } else {
       setUser(null);
     }

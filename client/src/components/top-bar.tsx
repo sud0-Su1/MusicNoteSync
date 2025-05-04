@@ -9,6 +9,9 @@ import { Label } from "@/components/ui/label";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { useMutation } from "@tanstack/react-query";
 import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/lib/auth-context";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export default function TopBar() {
   const [location] = useLocation();
@@ -17,6 +20,7 @@ export default function TopBar() {
   const [noteTitle, setNoteTitle] = useState("");
   const [noteContent, setNoteContent] = useState("");
   const { toast } = useToast();
+  const { user, logout } = useAuth();
   
   // Determine note type based on current path
   const getNoteTypeForPath = () => {
@@ -105,6 +109,23 @@ export default function TopBar() {
     // Invalidate query to trigger refetch with search
     queryClient.invalidateQueries({ queryKey: [getQueryKeyForCurrentView()] });
   };
+
+  const handleLogout = () => {
+    logout();
+    toast({
+      title: "Logged out",
+      description: "You have been successfully logged out.",
+    });
+  };
+  
+  // Get initials for avatar fallback
+  const getInitials = () => {
+    if (!user) return "U";
+    if (user.displayName) {
+      return user.displayName.split(" ").map(n => n[0]).join("").toUpperCase();
+    }
+    return user.username.substring(0, 2).toUpperCase();
+  };
   
   return (
     <>
@@ -130,6 +151,34 @@ export default function TopBar() {
           <Button className="ml-2" onClick={() => setIsCreatingNote(true)}>
             <i className="ri-add-line mr-1.5"></i> New Note
           </Button>
+          
+          {/* User Profile Dropdown */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" className="ml-2 relative rounded-full h-8 w-8 p-0">
+                <Avatar>
+                  <AvatarImage src={user?.avatarUrl} alt={user?.displayName || user?.username} />
+                  <AvatarFallback>{getInitials()}</AvatarFallback>
+                </Avatar>
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuLabel>
+                {user?.displayName || user?.username}
+              </DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>
+                <i className="ri-user-line mr-2"></i> Profile
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <i className="ri-settings-line mr-2"></i> Settings
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem onClick={handleLogout}>
+                <i className="ri-logout-box-line mr-2"></i> Logout
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
       </header>
       

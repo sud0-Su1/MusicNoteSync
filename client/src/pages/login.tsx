@@ -63,7 +63,7 @@ export default function LoginPage() {
       queryClient.invalidateQueries({ queryKey: ["/api/auth/user"] });
       toast({
         title: "Welcome back!",
-        description: `Logged in as ${data.displayName || data.username}`,
+        description: `Logged in successfully`,
       });
       navigate("/");
     },
@@ -88,7 +88,7 @@ export default function LoginPage() {
       queryClient.invalidateQueries({ queryKey: ["/api/auth/user"] });
       toast({
         title: "Registration successful!",
-        description: `Welcome, ${data.displayName || data.username}!`,
+        description: `Account created successfully!`,
       });
       navigate("/");
     },

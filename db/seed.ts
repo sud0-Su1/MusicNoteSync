@@ -30,7 +30,7 @@ async function seed() {
     // Create demo user
     const [demoUser] = await db.insert(users).values({
       username: "demo",
-      password: hashPassword("demo123"),
+      password: hashPassword("password"),
       displayName: "Alex Morgan",
       avatarUrl: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&h=100&fit=crop",
     }).returning();
